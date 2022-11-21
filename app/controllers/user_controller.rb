@@ -1,4 +1,8 @@
+require 'pry'
 class UserController < ApplicationController
+  skip_before_action :require_login, only: [:create]
+  skip_before_action :check_user, only: %i[index]
+
   def index
     @users = User.all
     if @users
@@ -14,7 +18,6 @@ class UserController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     if @user
       render json: {
         user: @user
@@ -46,6 +49,6 @@ class UserController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end

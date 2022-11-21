@@ -1,7 +1,6 @@
 require 'pry'
 class SessionsController < ApplicationController
-  def create
-    binding.pry
+  def login
     @user = User.find_by(username: session_params[:username])
 
     if @user&.authenticate(session_params[:password])

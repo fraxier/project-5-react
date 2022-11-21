@@ -52,3 +52,10 @@ Lint/RedundantDirGlobSort: # new in 1.8
   Enabled: true 
 Lint/RefinementImportMethods: 
   Enabled: true 
+
+Metrics/MethodLength:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
