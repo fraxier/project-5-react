@@ -9,7 +9,7 @@ class TopicController < ApplicationController
     else
       render json: {
         status: 500,
-        errors: ['no topics found for this user']
+        errors: ['no topics found for this subject']
       }
     end
   end
@@ -23,10 +23,29 @@ class TopicController < ApplicationController
     else
       render json: {
         status: 500,
-        errors: ["no topic of id #{params[:id]} found this user"]
+        errors: ["no topic of id #{params[:id]} found for this subject"]
       }
     end
   end
 
-  def create; end
+  def create
+    @topic = Topic.new(topic_params)
+    if @topic.save
+      render json: {
+        status: :created,
+        topic: @topic
+      }
+    else
+      render json: {
+        status: 500,
+        errors: @topic.errors.full_messages
+      }
+    end
+  end
+
+  private
+
+  def topic_params
+    params.require(:topic).permit(:name, :description, :subject_id)
+  end
 end

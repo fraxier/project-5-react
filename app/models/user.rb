@@ -1,3 +1,4 @@
+require 'pry'
 class User < ApplicationRecord
   has_secure_password
   validates :username, presence: true
@@ -18,19 +19,25 @@ class User < ApplicationRecord
     find_topics(subject_id)&.find_by(id: topic_id)
   end
 
-  
+  def find_notes(subject_id, topic_id)
+    find_topic(subject_id, topic_id)&.notes
+  end
 
+  def find_note(subject_id, topic_id, note_id)
+    find_notes(subject_id, topic_id)&.find_by(id: note_id)
+  end
 
+  def find_resources(subject_id, topic_id)
+    find_topic(subject_id, topic_id)&.resources
+  end
 
+  def find_resource(subject_id, topic_id, resouce_id)
+    find_resources(subject_id, topic_id)&.find_by(id: resouce_id)
+  end
 
-
-
-
-
-
-
-
-# For possible future use
+  #########
+  #### For possible future use ####
+  #########
 
   def param_subject(subject_id)
     subjects.find_by(id: subject_id)
