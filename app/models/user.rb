@@ -35,6 +35,10 @@ class User < ApplicationRecord
     find_resources(subject_id, topic_id)&.find_by(id: resouce_id)
   end
 
+  def check_username(username)
+    User.find_by(username: username)
+  end
+
   #########
   #### For possible future use ####
   #########

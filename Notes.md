@@ -13,9 +13,14 @@ Incorporate Active Storage to project
 bin/rails active_storage:install
 bin/rails db:migrate
 
-
-
-
-
-
 https://guides.rubyonrails.org/action_cable_overview.html
+
+# React Stuff
+
+Icons - https://mui.com/material-ui/material-icons/
+
+# Javascript Stuff
+FormData - https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
+Dynamic key names in objects - https://www.samanthaming.com/tidbits/37-dynamic-property-name-with-es6/
+Using fetch - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
