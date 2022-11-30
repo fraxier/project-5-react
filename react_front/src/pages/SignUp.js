@@ -7,19 +7,18 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
 import Typography from '@mui/material/Typography';
+import { redirect, useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
-  const [userDetails, setUserDetails] = useState({username: '', email: '', password: ''})
-  const [errors, setErrors] = useState({username: '', email: '', password: ''})
+  const baseState = {username: '', email: '', password: ''}
+  const [formDetails, setFormDetails] = useState({...baseState})
+  const [formErrors, setFormErrors] = useState({...baseState})
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    clearFormErrors();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   username: data.get('username'),
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
 
     const submission = {
       user: {
@@ -34,23 +33,36 @@ export default function SignUp() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(submission)
-    }).then(response => response.json())
+      body: JSON.stringify(submission),
+      credentials: 'include'
+    })
+    .then(response => response.json())
     .then(body => {
       if ('errors' in body) {
         console.log('errors came back from server')
         for (const key in body.errors) {
-          console.log(key)
+          
+          body.errors[key].unshift(key.toString());
+          setFormErrors((state) => {
+            return {
+              ...state,
+              [key]: body.errors[key].join(' ')
+            };
+          })
         }
       } else {
-        console.log("haeihpaeg")
+        navigate('/')
       }
     })
   };
 
+  const clearFormErrors = () => {
+    setFormErrors((state) => state = {...baseState})
+  }
+
   const handleChange = (event) => {
     const field = event.target.id;
-    setUserDetails({ ...userDetails, [field]:[event.target.value] })
+    setFormDetails({ ...formDetails, [field]:[event.target.value] })
   }
 
   return (
@@ -81,12 +93,17 @@ export default function SignUp() {
             name="username"
             autoComplete="username"
             autoFocus
-            value={userDetails.username}
+            value={formDetails.username}
             onChange={handleChange}
           />
+          {!!formErrors.username && (
+            <Alert severity='error'>
+              <Typography variant='code'>{` ${formErrors.username} `}</Typography>
+            </Alert>
+          )}
           {/* Email Field */}
           <TextField
-            error={!!errors.email}
+            error={!!formErrors.email}
             margin="normal"
             required
             fullWidth
@@ -94,17 +111,17 @@ export default function SignUp() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            value={userDetails.email}
+            value={formDetails.email}
             onChange={handleChange}
           />
-          {!!errors.email && (
+          {!!formErrors.email && (
             <Alert severity='error'>
-              <Typography variant='code'>{` ${errors.email} `}</Typography>
+              <Typography variant='code'>{` ${formErrors.email} `}</Typography>
             </Alert>
           )}
           {/* Password Field */}
           <TextField
-            error={!!errors.password}
+            error={!!formErrors.password}
             margin="normal"
             required
             fullWidth
@@ -113,12 +130,12 @@ export default function SignUp() {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={userDetails.password}
+            value={formDetails.password}
             onChange={handleChange}
           />
-          {!!errors.password && (
+          {!!formErrors.password && (
             <Alert severity='error'>
-              <Typography variant='code'>{` ${errors.password} `}</Typography>
+              <Typography variant='code'>{` ${formErrors.password} `}</Typography>
             </Alert>
           )}
           <Button

@@ -1,16 +1,19 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link, useNavigate } from 'react-router-dom'
+import { Alert } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/features/sessionSlice';
 
 function Copyright(props) {
   return (
@@ -26,14 +29,62 @@ function Copyright(props) {
 }
 
 export default function Login() {
+  const [formDetails, setFormDetails] = useState({email: '', password: ''})
+  const [formErrors, setFormErrors] = useState({message: ''})
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.session.loggedIn)
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const user = {
+      user: {
+        email: data.get('email'),
+        password: data.get('password')
+      }
+    }
+
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user),
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(body => {
+      
+      if ('errors' in body) {
+        setFormErrors({message: body.errors[0]})
+      } else {
+        doLogin();
+      }
+    })
+
+    data.get('message')
   };
+
+  function doLogin() {
+    dispatch(login())
+    navigate('/')
+  }
+
+  const clearFormErrors = () => {
+    setFormErrors((state) => state = {message: ''})
+  }
+
+  const handleChange = (event) => {
+    if (!!formErrors.message) {
+      clearFormErrors();
+    }
+    const field = event.target.id;
+    setFormDetails({ ...formDetails, [field]:[event.target.value] })
+  }
+
+  console.log(isLoggedIn)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -63,6 +114,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
           />
           {/* Password Field */}
           <TextField
@@ -74,7 +126,13 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
+          {!!formErrors.message && (
+            <Alert severity='error'>
+              <Typography variant='code'>{` ${formErrors.message} `}</Typography>
+            </Alert>
+          )}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -89,12 +147,12 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to='/forgot'>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to='/signup'>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

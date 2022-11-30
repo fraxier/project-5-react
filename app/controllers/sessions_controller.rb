@@ -1,8 +1,8 @@
 require 'pry'
 class SessionsController < ApplicationController
   def login
-    @user = User.find_by(username: session_params[:username])
-
+    @user = User.find_by(email: session_params[:email])
+    
     if @user&.authenticate(session_params[:password])
       login!
       render json: {
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     else
       render json: {
         status: 401,
-        errors: ['no such user, please try again']
+        errors: ['email/password combination not found, please try again.']
       }
     end
   end
@@ -42,6 +42,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:email, :password)
   end
 end

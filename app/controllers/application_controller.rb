@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :login!, :logged_in?, :current_user, :authorized_user?, :logout!, :set_user
 
   def login!
+    puts "'logging in user' #{@user.id}"
     session[:user_id] = @user.id
   end
 
