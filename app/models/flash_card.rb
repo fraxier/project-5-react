@@ -1,2 +1,0 @@
-class FlashCard < ApplicationRecord
-end

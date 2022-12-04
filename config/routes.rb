@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   post '/logout',   to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
 
+  get '/recent_learnings/:num', to: 'learnings#recent'
+  get '/recent_learnings', to: 'learnings#recent'
+
+  get '/mega_summary', to: 'learnings#mega_summary'
+
   ### Model Routes
   # user:
   # get user details, create new user, udpate user details, login/logout user
@@ -23,11 +28,11 @@ Rails.application.routes.draw do
   #     end
   #   end
   # end
-  resources :user, only: %i[index show create update]
-  resources :subject, only: %i[index show create update destroy] do
-    resources :topic, only: %i[index show create destroy] do
-      resources :note, only: %i[index show create update destroy]
-      resources :resource, only: %i[index show create update destroy]
+  resources :users, only: %i[index show create update]
+  resources :learnings, only: %i[index show create update destroy] do
+    resources :headings, only: %i[index show create destroy] do
+      resources :notes, only: %i[index show create update destroy]
+      resources :resources, only: %i[index show create update destroy]
     end
   end
 end

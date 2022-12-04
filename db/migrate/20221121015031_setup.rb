@@ -8,34 +8,41 @@ class Setup < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    create_table :subjects do |t|
+    create_table :learnings do |t|
       t.string :name
-      t.text :description
+      t.text :motivation
       t.belongs_to :user
 
       t.timestamps
     end
 
-    create_table :topics do |t|
+    create_table :headings do |t|
       t.string :name
-      t.text :description
-      t.belongs_to :subject
+      t.belongs_to :learning
 
       t.timestamps
     end
 
     create_table :notes do |t|
       t.text :content
-      t.belongs_to :topic
+      t.belongs_to :heading
 
       t.timestamps
     end
 
     create_table :resources do |t|
       t.string :url
-      t.belongs_to :topic
+      t.belongs_to :heading
 
       t.timestamps
     end
+
+    create_table :tags do |t|
+      t.string :name
+      t.belongs_to :user
+      t.boolean :deletable, default: true, null: false
+    end
+
+    create_join_table :learnings, :tags
   end
 end

@@ -1,3 +1,3 @@
 class Resource < ApplicationRecord
-  belongs_to :topic
+  belongs_to :heading
 end

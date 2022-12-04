@@ -1,4 +1,4 @@
-class NoteController < ApplicationController
+class NotesController < ApplicationController
   def index
     @notes = @user.find_notes(params[:subject_id], params[:topic_id])
     if @notes

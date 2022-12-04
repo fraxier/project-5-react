@@ -1,5 +1,5 @@
 require 'pry'
-class UserController < ApplicationController
+class UsersController < ApplicationController
   skip_before_action :require_login, only: [:create]
   skip_before_action :check_user, only: %i[index]
 

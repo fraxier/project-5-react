@@ -84,7 +84,7 @@ export default function Login() {
     setFormDetails({ ...formDetails, [field]:[event.target.value] })
   }
 
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
 
   return (
     <Container component="main" maxWidth="xs">

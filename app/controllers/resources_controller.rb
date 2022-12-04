@@ -1,4 +1,4 @@
-class ResourceController < ApplicationController
+class ResourcesController < ApplicationController
   def index
     @resources = @user.find_resources(params[:subject_id], params[:topic_id])
     if @resources

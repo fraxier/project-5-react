@@ -5,19 +5,22 @@ import React from "react";
 
 export default function Underline({ width, color }) {
 
+  width = width === undefined ? '100%' : width
+  color = color === undefined ? 'blue' : color
+
   const colors = {
     'red': red[500],
     'blue': blue[500],
     'yellow': yellow[500],
-    'orange': orange[500]
+    'orange': orange[500],
+    'primary': 'primary.main'
   }
 
   return (
     <Box sx={{
       width: width,
       bgcolor: colors[color],
-      height: '3px',
-      mb: 2
+      height: '2px'
     }}/>
   )
 }
