@@ -13,7 +13,6 @@ import DrawerBase from './pages/DrawerBase';
 function App() {
   const loggedIn = useSelector(state => state.session.loggedIn)
   const dispatch = useDispatch()
-  console.log(loggedIn)
 
   useEffect(() => {
     fetch('http://localhost:3000/logged_in', { credentials: 'include' })

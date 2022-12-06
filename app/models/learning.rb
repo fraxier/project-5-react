@@ -6,6 +6,6 @@ class Learning < ApplicationRecord
   has_many :resources, through: :topic
 
   def self.recent_learnings(user_id, num = 5)
-    Learning.where(user_id:).limit(num)
+    Learning.where(user_id:)&.order(updated_at: :desc)&.limit(num)
   end
 end

@@ -1,73 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, AccordionSummary, Box, Stack, Typography } from "@mui/material";
-import Holder from "../components/Holder";
-import TypeScale from "../components/TypeScale";
-import Underline from "../components/Underline";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Typography, useTheme } from "@mui/material";
+import MegaSummary from "../components/dashboard/MegaSummary";
+import { Stack } from "@mui/system";
+import RowSummary from "../components/dashboard/RowSummary";
+import Utilities from "../Utilities";
+
+
 
 export default function Dashboard() {
-
+  const theme = useTheme()
   const [pageData, setPageData] = useState({})
 
   useEffect(() => {
-    // recent learnings 5
-    fetch('http://localhost:3000/recent_learnings', {credentials: 'include'})
+    fetch('http://localhost:3000/mega_summary', {credentials: 'include'})
     .then(res => res.json())
     .then(body => {
-      console.log(body)
+      setPageData(body)
     })
-
-  })
-
+  }, [])
+  console.log(pageData)
   return (
-    <div>
-      <Box sx={{ display: 'flex' }}>
-        <h5>Motivation Summary<Underline /></h5>
-        <Stack>
-          <Box sx={{ display: 'flex'}}>
-            
-          </Box>
-        </Stack>
-      </Box>
-
-      <h2 style={{textAlign: 'left', width: 'fit-content'}}>
-        Subjects
-        <Underline color={'red'} width='100%' />
-      </h2>
-      <Box sx={{ display: 'flex', alignItems: 'center', overflowX: 'scroll', mb: 5 }}>
-        <Holder type='S' />
-        <Holder type='S' />
-        <Holder type='S' />
-        <Holder type='S' />
-        <Holder type='S' />
-        <Holder type='S' />
-      </Box>
-
-      <h2 style={{textAlign: 'left', width: 'fit-content'}}>
-        Topics
-        <Underline color={'blue'} width='100%' />
-      </h2>
-      <Box sx={{ display: 'flex', alignItems: 'center', overflowX: 'scroll', mb: 5 }}>
-        <Holder type='T' />
-        <Holder type='T' />
-        <Holder type='T' />
-        <Holder type='T' />
-        <Holder type='T' />
-      </Box>
-
-      <h2 style={{textAlign: 'left', width: 'fit-content'}}>
-        Notes
-        <Underline color={'orange'} width='100%' />
-      </h2>
-      <Box sx={{ display: 'flex', alignItems: 'center', overflowX: 'scroll', mb: 5 }}>
-        <Holder type='N' />
-        <Holder type='N' />
-        <Holder type='N' />
-        <Holder type='N' />
-        <Holder type='N' />
-      </Box>
-
-      <TypeScale></TypeScale>
-    </div>
+    <React.Fragment>
+      <MegaSummary data={pageData} />
+      <Stack spacing={2}>
+        <h1>Recent Learnings</h1>
+        <Typography variant="body2">I've been working on these recently...</Typography>
+        <RowSummary data={pageData.recent_learnings} cardType={Utilities.cardTypes.RECENTS} />
+        <h1>Main Learnings</h1>
+        <Typography variant="body2">Things I want to focus on...</Typography>
+        <RowSummary data={pageData.main_learnings} cardType={Utilities.cardTypes.MAINS} />
+        <h1>Completed Learnings</h1>
+        <Typography variant="body2">Finished these but good to look back on!</Typography>
+        <RowSummary data={pageData.completed_learnings} cardType={Utilities.cardTypes.COMPLETED} />
+      </Stack>
+    </React.Fragment>
   )
 }

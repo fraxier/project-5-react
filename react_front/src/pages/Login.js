@@ -33,7 +33,6 @@ export default function Login() {
   const [formErrors, setFormErrors] = useState({message: ''})
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.session.loggedIn)
 
   const handleSubmit = (event) => {
     event.preventDefault();

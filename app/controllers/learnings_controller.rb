@@ -55,7 +55,7 @@ class LearningsController < ApplicationController
 
   def main_learnings
     render json: {
-      results: Tag.main_tag_learnings(session[:user_id])
+      results: Tag.main_tag_learnings(session[:user_id], 5)
     }
   end
 
@@ -66,22 +66,28 @@ class LearningsController < ApplicationController
   end
 
   def mega_summary
-    total_learnings = current_user.learnings.count
-    tags_by_most = ActiveRecord::Base.connection.execute(
-      "SELECT Tags.name, COUNT(*) as count
-      FROM Learnings_Tags
-      INNER JOIN Tags
-      WHERE user_id = #{session[:user_id]}"
-    )
-    total_tags = current_user.tags.count
-    completed_learnings = current_user.tags.find_by(name: 'Completed')&.learnings&.count || 0
+    recent_learnings = Learning.recent_learnings(session[:user_id],
+                                                 5).collect { |learn| { learn:, tags: learn.tags } }
+    tags_summary = Tag.summary(session[:user_id])
     started_learning = current_user.created_at
+    main_learnings = Tag.main_tag_learnings(session[:user_id])
+    completed_learnings = Tag.completed_learnings(session[:user_id])
+
+    total_learnings = current_user.learnings.count
+    most_common_tags = Tag.most_common(session[:user_id])
+    total_tags = current_user.tags.count
+    total_completed = current_user.tags.find_by(name: 'Completed')&.learnings&.count || 0
     render json: {
-      total_learnings:,
-      tags_by_most:,
-      total_tags:,
+      recent_learnings:,
+      tags_summary:,
+      started_learning:,
+      main_learnings:,
       completed_learnings:,
-      started_learning:
+
+      total_learnings:,
+      most_common_tags:,
+      total_tags:,
+      total_completed:
     }
   end
 

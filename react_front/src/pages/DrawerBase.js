@@ -3,21 +3,80 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Logo from '../components/Logo';
-import { Navigate, Routes, Route, Link } from 'react-router-dom'
+import { Navigate, Routes, Route } from 'react-router-dom'
 import Dashboard from './Dashboard';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import SideDrawer from '../components/SideDrawer';
+import { Link } from '@mui/material';
+
+export default function DrawerBase() {
+  const [open, setOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setOpen(!open)
+  }
+
+  const handleLogout = () => {
+    fetch('http://localhost:3000/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(body => {
+      if (body.logged_out) {
+        window.location.reload(true)
+      } else {
+        console.log('oh oh spaghettio!')
+      }
+    })
+  }
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open} sx={{
+        bgcolor: 'white',
+        color: 'black'
+      }}>
+        <Box sx={{
+          ml: 3, 
+          display: 'flex',
+          alignItems: 'center',
+          width: '95%' //`calc(100% - 60px)`
+        }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            edge="start"
+            sx={{ marginRight: 5 }}>
+            <MenuIcon />
+          </IconButton>
+          <Logo />
+          <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center', justifyContent: 'end', gap: 3 }}>
+            <Link href='account'><AccountCircleOutlinedIcon /></Link>
+            <Link underline='hover' sx={{ cursor: 'pointer' }} onClick={handleLogout}>Logout</Link>
+          </Box>
+        </Box>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader />
+        <SideDrawer open={open} />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p:3, width: `calc(100% - ${drawerWidth}px)` }}>
+        <DrawerHeader />
+        <Routes>
+          <Route path='/' element={ <Dashboard /> } />
+          <Route path='/login' element={ <Navigate to='/' /> } />
+        </Routes>
+      </Box>
+    </Box>
+  );
+}
 
 const drawerWidth = 240;
 
@@ -85,78 +144,3 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 );
-
-const links = [
-  {text: 'Dashboard', icon: <DashboardRoundedIcon />, link: '/'},
-  {text: 'Learnings', icon: <MenuBookRoundedIcon />, link: '/learnings'},
-  {text: 'Tags', icon: <LocalOfferRoundedIcon />, link: '/tags'}
-]
-
-export default function DrawerBase() {
-  const [open, setOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setOpen(!open)
-  }
-
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{
-        bgcolor: 'white',
-        color: 'black'
-      }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              // ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Logo />
-        </Toolbar>
-        <
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader />
-        <List sx={{ pt: 3 }}>
-          {links.map(({text, icon, link}) => (
-            <ListItem className='drawer-link' key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton LinkComponent={Link} href={link}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Routes>
-          <Route path='/' element={ <Dashboard /> } />
-          <Route path='/login' element={ <Navigate to='/' /> } />
-        </Routes>
-      </Box>
-    </Box>
-  );
-}
