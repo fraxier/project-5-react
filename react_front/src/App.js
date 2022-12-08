@@ -17,7 +17,7 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    fetch(Utilities.urls.loggedIn(), { credentials: 'include' })
+    fetch(Utilities.railsUrls.loggedIn(), { credentials: 'include' })
     .then(res => res.json())
     .then(body => {
       body.logged_in ? dispatch(login()) : dispatch(logout())

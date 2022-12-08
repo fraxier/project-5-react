@@ -4,19 +4,22 @@ import MegaSummary from "../components/dashboard/MegaSummary";
 import { Stack } from "@mui/system";
 import RowSummary from "../components/dashboard/RowSummary";
 import Utilities from "../Utilities";
+import LoadingWheel from "../components/LoadingWheel"
 
 export default function Dashboard() {
   const theme = useTheme()
   const [pageData, setPageData] = useState({})
 
   useEffect(() => {
-    fetch('http://localhost:3000/mega_summary', {credentials: 'include'})
+    fetch(Utilities.railsUrls.megaSummary(), {credentials: 'include'})
     .then(res => res.json())
     .then(body => {
       setPageData(body)
     })
   }, [])
-  console.log(pageData)
+  
+  if (pageData === undefined) return (<LoadingWheel />)
+
   return (
     <React.Fragment>
       <MegaSummary data={pageData} />

@@ -8,7 +8,7 @@ export default function Learnings() {
   const [pageData, setPageData] = useState()
 
   useEffect(() => {
-    fetch(Utilities.urls.getLearnings(), {credentials: 'include'})
+    fetch(Utilities.railsUrls.getLearnings(), {credentials: 'include'})
     .then(res => res.json())
     .then(body => {setPageData(body)})
   }, [])

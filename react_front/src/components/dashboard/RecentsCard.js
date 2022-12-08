@@ -14,7 +14,7 @@ export default function RecentsCard({ data }) {
       {data && (
         <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
           <CardContent>
-            <Link href={`${Utilities.urls.getLearning(data.learn.id)}`}>
+            <Link href={`${Utilities.urls.learning(data.learn.id)}`}>
               <Typography variant='h6'>{data.learn.name}</Typography>
             </Link>
             {data.tags.map((tag) => (

@@ -6,12 +6,19 @@ export default class Utilities {
     return tooLong ? text.substr(0, length).concat(suffix) : text;
   }
 
-  static railsUrl = 'http://localhost:3000/'
+  static railsBaseUrl = 'http://localhost:3000/'
+  static baseUrl = 'http://localhost:3001/'
 
   static urls = {
-    getLearnings: () => this.railsUrl + 'learnings',
-    getLearning: (id) => this.railsUrl + `learnings/${id}`,
-    loggedIn: () => this.railsUrl + 'logged_in'
+    learning: (id) => this.baseUrl + `learnings/${id}`,
+    learnings: () => this.baseUrl + 'learnings'
+  }
+
+  static railsUrls = {
+    getLearnings: () => this.railsBaseUrl + 'learnings',
+    getLearning: (id) => this.railsBaseUrl + `learnings/${id}`,
+    loggedIn: () => this.railsBaseUrl + 'logged_in',
+    megaSummary: () => this.railsBaseUrl + 'mega_summary'
   }
 
   static niceDate(date, format = 'dd-mm-yy') {

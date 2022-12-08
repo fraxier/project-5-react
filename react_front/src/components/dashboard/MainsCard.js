@@ -9,7 +9,7 @@ export default function MainsCard({ data }) {
     {data && (
       <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
         <CardContent>
-        <Link href={`${Utilities.urls.getLearning(data.id)}`}>
+        <Link href={`${Utilities.urls.learning(data.id)}`}>
             <Typography variant='h6'>{data.name}</Typography>
           </Link>
           <Typography variant='body2'>
