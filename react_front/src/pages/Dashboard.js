@@ -5,8 +5,6 @@ import { Stack } from "@mui/system";
 import RowSummary from "../components/dashboard/RowSummary";
 import Utilities from "../Utilities";
 
-
-
 export default function Dashboard() {
   const theme = useTheme()
   const [pageData, setPageData] = useState({})

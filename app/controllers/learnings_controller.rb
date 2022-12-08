@@ -3,9 +3,7 @@ class LearningsController < ApplicationController
   def index
     @learnings = @user.learnings
     if @learnings
-      render json: {
-        learnings: @learnings
-      }
+      render json: @learnings
     else
       render json: {
         status: 500,
@@ -15,12 +13,13 @@ class LearningsController < ApplicationController
   end
 
   def show
-    @learning = @user.find_learning(params[:id])
+    @learning = @user.find_learning(session[:user_id])
     if @learning
-      headings = @learning.headings
       result = {
         learning: @learning,
-        headings: 
+        headings: @learning.headings.map do |head|
+          { heading: head, notes: head.notes }
+        end
       }
       render json: result
     else

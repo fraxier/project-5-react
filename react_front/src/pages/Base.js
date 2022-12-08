@@ -13,6 +13,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import SideDrawer from '../components/SideDrawer';
 import { Link } from '@mui/material';
 import Learning from './Learning';
+import Learnings from './Learnings';
 
 export default function Base() {
   const [open, setOpen] = useState(true);
@@ -73,6 +74,7 @@ export default function Base() {
         <Routes>
           <Route path='/dash' element={ <Dashboard /> } />
           <Route path='/login' element={ <Navigate to='/' /> } />
+          <Route path='/learnings' element={ <Learnings />} />
           <Route path='/learnings/:id' element={ <Learning /> } />
           <Route path='/' element={ <Navigate to='/dash' /> } />
         </Routes>

@@ -7,7 +7,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from './redux/features/sessionSlice';
 import { CssBaseline } from '@mui/material';
-import DrawerBase from './pages/Base';
+import Base from './pages/Base';
 import LoadingWheel from './components/LoadingWheel';
 import Utilities from './Utilities';
 
@@ -17,7 +17,7 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    fetch(Utilities.urls.loggedIn, { credentials: 'include' })
+    fetch(Utilities.urls.loggedIn(), { credentials: 'include' })
     .then(res => res.json())
     .then(body => {
       body.logged_in ? dispatch(login()) : dispatch(logout())
@@ -32,7 +32,7 @@ function App() {
       <Routes>
         {/* Show only when Logged In */}
         {loggedIn && (
-          <Route path="*" element={ <DrawerBase loggedIn={loggedIn} /> }/>
+          <Route path="*" element={ <Base loggedIn={loggedIn} /> }/>
         )}
 
         {/* Show only when Logged In */}

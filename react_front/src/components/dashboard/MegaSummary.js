@@ -5,7 +5,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Chip } from '@mui/material';
-import dateFormat from 'dateformat'
+import Utilities from '../../Utilities';
 
 export default function MegaSummary({ data }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -24,7 +24,7 @@ export default function MegaSummary({ data }) {
           <Typography variant='h4' component='h5' sx={{ width: '50%', flexShrink: 0 }}>
             Mega Summary
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Started Learning: {dateFormat(data.started_learning, 'dddd, mmmm dS, yyyy')}</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>Started Learning: <br/>{Utilities.niceDate(data.started_learning, 'dddd, mmmm dS, yyyy')}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

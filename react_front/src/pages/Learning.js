@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import LoadingWheel from "../components/LoadingWheel";
@@ -11,15 +12,35 @@ export default function Learning() {
   useEffect(() => {
     fetch(Utilities.urls.getLearning(id), {credentials: 'include'})
     .then(res => res.json())
-    .then(body => setPageData(body.learning))
+    .then(body => setPageData(body))
   }, [])
-  console.log(pageData)
+  
   if (pageData === undefined) return (<LoadingWheel />)
-
+  
   return (
     <React.Fragment>
-      <Typography variant="h4">{pageData.name}</Typography>
+      <Typography variant="h4">{pageData.learning.name}</Typography>
+      {!pageData.headings && (
+        <Container>
+          <Typography variant="h6">No headings have been added!</Typography>
+        </Container>
+      )}
       
+      {pageData.headings.map((row) => (
+        <Paper elevation={5} sx={{ p:3, my:2 }}>
+          <Typography variant="h6">{row.heading.name}</Typography>
+          {row.notes.length === 0 && (
+            <Container>
+              <Typography variant="h6">No notes added here yet!</Typography>
+            </Container>
+          )}
+          {row.notes.map((note) => (
+            <Box>
+              <Typography variant='body1'>{note.content}</Typography>
+            </Box>
+          ))}
+        </Paper>
+      ))}
     </React.Fragment>
   )
 }
