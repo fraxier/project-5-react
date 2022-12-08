@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 export default function SideDrawer({ open }) {
   
   const links = [
-    {text: 'Dashboard', icon: <DashboardRoundedIcon />, link: '/'},
+    {text: 'Dashboard', icon: <DashboardRoundedIcon />, link: '/dash'},
     {text: 'Learnings', icon: <MenuBookRoundedIcon />, link: '/learnings'},
     {text: 'Tags', icon: <LocalOfferRoundedIcon />, link: '/tags'}
   ]

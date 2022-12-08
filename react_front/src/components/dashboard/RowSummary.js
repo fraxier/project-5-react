@@ -6,7 +6,6 @@ import MainsCard from "./MainsCard";
 import RecentsCard from "./RecentsCard";
 
 export default function RowSummary({ data, cardType }) {
-  console.log(data)
   return (
     <Stack direction='row' spacing={2} sx={{
       overflowX: 'auto',

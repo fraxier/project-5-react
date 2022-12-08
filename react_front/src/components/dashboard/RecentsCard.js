@@ -18,7 +18,10 @@ export default function RecentsCard({ data }) {
             {data.tags.map((tag) => (
               <Chip key={tag.id} label={tag.name} size='small' />
             ))}
-            <Typography variant='body2'>{Utilities.limitString(data.learn.motivation)}</Typography>
+            <Typography variant='body2'>
+              <Typography fontWeight='bold' variant="caption">Motivation: </Typography>
+              {Utilities.limitString(data.learn.motivation)}
+            </Typography>
             <Typography variant='caption'>Last touched: {data.learn.updated_at}</Typography>
           </CardContent>
           <CardActions>

@@ -12,8 +12,9 @@ import Dashboard from './Dashboard';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SideDrawer from '../components/SideDrawer';
 import { Link } from '@mui/material';
+import Learning from './Learning';
 
-export default function DrawerBase() {
+export default function Base() {
   const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => {
@@ -70,8 +71,10 @@ export default function DrawerBase() {
       <Box component="main" sx={{ flexGrow: 1, p:3, width: `calc(100% - ${drawerWidth}px)` }}>
         <DrawerHeader />
         <Routes>
-          <Route path='/' element={ <Dashboard /> } />
+          <Route path='/dash' element={ <Dashboard /> } />
           <Route path='/login' element={ <Navigate to='/' /> } />
+          <Route path='/learnings/:id' element={ <Learning /> } />
+          <Route path='/' element={ <Navigate to='/dash' /> } />
         </Routes>
       </Box>
     </Box>

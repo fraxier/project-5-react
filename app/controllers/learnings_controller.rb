@@ -17,9 +17,12 @@ class LearningsController < ApplicationController
   def show
     @learning = @user.find_learning(params[:id])
     if @learning
-      render json: {
-        learning: @learning
+      headings = @learning.headings
+      result = {
+        learning: @learning,
+        headings: 
       }
+      render json: result
     else
       render json: {
         status: 500,

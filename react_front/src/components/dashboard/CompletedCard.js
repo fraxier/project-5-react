@@ -3,14 +3,17 @@ import React from "react";
 import Utilities from "../../Utilities";
 
 export default function CompletedCard({ data }) {
-  console.log(data)
+  
   return (
     <React.Fragment>
       {data && (
         <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
           <CardContent>
             <Typography variant='h6'>{data.name}</Typography>
-            <Typography variant='body2'>{Utilities.limitString(data.motivation)}</Typography>
+            <Typography variant='body2'>
+              <Typography fontWeight='bold' variant="caption">Motivation: </Typography>
+              {Utilities.limitString(data.motivation)}
+            </Typography>
             <Typography variant='caption'>Last touched: {data.updated_at}</Typography>
           </CardContent>
           <CardActions>

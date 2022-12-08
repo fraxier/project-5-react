@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/Loading.css'
 
-function Loading() {
+export default function LoadingWheel() {
 
   return (
     <div className='center'>
@@ -9,5 +9,3 @@ function Loading() {
     </div>
   )
 }
-
-export default Loading;
