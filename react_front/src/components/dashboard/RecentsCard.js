@@ -3,26 +3,28 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { Button, Chip } from '@mui/material';
+import { Button, Chip, Link } from '@mui/material';
 import Utilities from '../../Utilities'
 
 
 export default function RecentsCard({ data }) {
- 
+  
   return (
     <React.Fragment>
       {data && (
         <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
           <CardContent>
-            <Typography variant='h6'>{data.learn.name}</Typography>
+            <Link href={`${Utilities.urls.getLearning(data.learn.id)}`}>
+              <Typography variant='h6'>{data.learn.name}</Typography>
+            </Link>
             {data.tags.map((tag) => (
               <Chip key={tag.id} label={tag.name} size='small' />
             ))}
             <Typography variant='body2'>
               <Typography fontWeight='bold' variant="caption">Motivation: </Typography>
               {Utilities.limitString(data.learn.motivation)}
-            </Typography>
-            <Typography variant='caption'>Last touched: {data.learn.updated_at}</Typography>
+              </Typography>
+            <Typography variant='caption'>Last touched: {Utilities.niceDate(data.learn.updated_at)}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small">Learn More</Button>
