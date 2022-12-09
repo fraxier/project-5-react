@@ -1,6 +1,7 @@
-import { Paper, Typography } from "@mui/material";
+import { Link, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import NewLearning from "../components/learning/NewLearning";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 
@@ -18,10 +19,13 @@ export default function Learnings() {
   return (
     <React.Fragment>
       <Typography variant="h4">Learnings</Typography>
+      <NewLearning />
       <Paper sx={{ p:3 }}>
         {pageData.map((learning) => (
-          <Box sx={{ my: 2 }}>
-            <Typography variant="h5">{learning.name}</Typography>
+          <Box sx={{ my: 2 }} key={learning.id}>
+            <Link href={Utilities.urls.learning(learning.id)}>
+              <Typography variant="h5">{learning.name}</Typography>
+            </Link>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Typography variant="caption">
                 Created: {Utilities.niceDate(learning.created_at)}

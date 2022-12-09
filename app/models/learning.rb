@@ -5,6 +5,12 @@ class Learning < ApplicationRecord
   has_many :notes, through: :topic
   has_many :resources, through: :topic
 
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :name, length: { minimum: 4 }
+  validates :motivation, presence: true
+  validates :motivation, lenght: { minimum: 3 }
+
   def self.recent_learnings(user_id, num = 5)
     Learning.where(user_id:)&.order(updated_at: :desc)&.limit(num)
   end

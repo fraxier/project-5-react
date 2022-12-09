@@ -17,8 +17,10 @@ export default class Utilities {
   static railsUrls = {
     getLearnings: () => this.railsBaseUrl + 'learnings',
     getLearning: (id) => this.railsBaseUrl + `learnings/${id}`,
+    createLearning: () => this.railsUrls.getLearnings(),
     loggedIn: () => this.railsBaseUrl + 'logged_in',
-    megaSummary: () => this.railsBaseUrl + 'mega_summary'
+    megaSummary: () => this.railsBaseUrl + 'mega_summary',
+    getTags: () => this.railsBaseUrl + 'tags'
   }
 
   static niceDate(date, format = 'dd-mm-yy') {

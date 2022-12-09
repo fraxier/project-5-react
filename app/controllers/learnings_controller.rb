@@ -1,9 +1,9 @@
 require 'pry'
 class LearningsController < ApplicationController
   def index
-    @learnings = @user.learnings
-    if @learnings
-      render json: @learnings
+    learnings = current_user.learnings
+    if learnings
+      render json: learnings
     else
       render json: {
         status: 500,
@@ -13,11 +13,11 @@ class LearningsController < ApplicationController
   end
 
   def show
-    @learning = @user.find_learning(session[:user_id])
-    if @learning
+    learning = current_user.find_learning(params[:id])
+    if learning
       result = {
-        learning: @learning,
-        headings: @learning.headings.map do |head|
+        learning:,
+        headings: learning.headings.map do |head|
           { heading: head, notes: head.notes }
         end
       }
@@ -31,17 +31,17 @@ class LearningsController < ApplicationController
   end
 
   def create
-    @learning = Learning.new(learning_params)
-    @learning.user_id = session[:user_id]
-    if @learning.save
+    learning = Learning.new(learning_params)
+    learning.user_id = current_user.id
+    if learning.save
       render json: {
         status: :created,
-        learning: @learning
+        learning:
       }
     else
       render json: {
         status: 500,
-        errors: @learning.errors.full_messages
+        errors: learning.errors.full_messages
       }
     end
   end
@@ -96,6 +96,6 @@ class LearningsController < ApplicationController
   private
 
   def learning_params
-    params.require(:learning).permit(:name, :motivation)
+    params.require(:learning).permit(:name, :motivation, :tags)
   end
 end

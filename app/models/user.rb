@@ -39,38 +39,6 @@ class User < ApplicationRecord
   end
 
   def check_username(username)
-    User.find_by(username: username)
-  end
-
-  #########
-  #### For possible future use ####
-  #########
-
-  def param_learning(learning_id)
-    learnings.find_by(id: learning_id)
-  end
-
-  def param_heading(learning_id, heading_id)
-    param_learning(learning_id).headings.find_by(id: heading_id)
-  end
-
-  def param_note(learning_id, heading_id, note_id)
-    param_heading(learning_id, heading_id).notes.find_by(id: note_id)
-  end
-
-  def param_resource(learning_id, heading_id, resource_id)
-    param_heading(learning_id, heading_id).resources.find_by(id: resource_id)
-  end
-
-  def param_all_headings(learning_id)
-    param_learning(learning_id).headings
-  end
-
-  def param_all_notes(learning_id, heading_id)
-    param_heading(learning_id, heading_id).notes
-  end
-
-  def param_all_resources(learning_id, heading_id)
-    param_heading(learning_id, heading_id).resources
+    User.find_by(username:)
   end
 end

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   #   end
   # end
   resources :users, only: %i[index show create update]
+  resources :tags, only: %i[index show create destroy]
   resources :learnings, only: %i[index show create update destroy] do
     resources :headings, only: %i[index show create destroy] do
       resources :notes, only: %i[index show create update destroy]
