@@ -2,6 +2,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import NewHeading from "../components/learning/NewHeading";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 
@@ -20,6 +21,7 @@ export default function Learning() {
   return (
     <React.Fragment>
       <Typography variant="h4">{pageData.learning.name}</Typography>
+      <NewHeading />
       {!pageData.headings && (
         <Container>
           <Typography variant="h6">No headings have been added!</Typography>

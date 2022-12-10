@@ -10,11 +10,12 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
-    },
-  },
+    }
+  }
 };
 
 export default function NewLearning() {
+  const [open, setOpen] = useState(false)
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([])
   const [submissionData, setSubmissionData] = useState({
@@ -51,6 +52,7 @@ export default function NewLearning() {
   
   const handleSubmit = () => {
     setSuccess(false)
+    setFormErrors({message:''})
     fetch(Utilities.railsUrls.createLearning(), {
       method: 'POST',
       credentials: 'include',
@@ -59,27 +61,33 @@ export default function NewLearning() {
       },
       body: JSON.stringify({ ...submissionData, tags: selectedTags })
     })
-    .then(res => res.json)
+    .then(res => res.json())
     .then(body => {
+      debugger;
       if ('errors' in body) {
-        setFormErrors({message: body.errors[0]})
+        setFormErrors({message: body.errors})
       } else {
         setSubmissionData({ name: '', motivation: '' })
+        setSelectedTags([])
         setSuccess(true)
+        setOpen(false)
       }
     })
   }
-  console.log(submissionData)
+  
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+
   return (
     <React.Fragment>
-      <Accordion>
+      <Accordion expanded={open} onChange={handleOpen}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
-          sx={{ borderBottom: '1px solid #33333377' }}
-        >
-          <Typography>Create a learning here!</Typography>
+          sx={{ borderBottom: '1px solid #33333377' }}>
+          <Typography variant="h5">Create a learning here!</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ p: 3, pt: 4 }}>
           <Stack spacing={2}>
@@ -103,7 +111,7 @@ export default function NewLearning() {
             />
             {!!formErrors.message && (
               <Alert severity='error'>
-                <Typography variant='code'>{` ${formErrors.message} `}</Typography>
+                <Typography variant='code'>{` ${formErrors.message.join(' & ')} `}</Typography>
               </Alert>
             )}
             <FormControl sx={{ m: 1, width: '20%', minWidth:300 }}>
@@ -129,15 +137,14 @@ export default function NewLearning() {
               <FormHelperText className='wave'>Select tags to help identify what it is you are learning!</FormHelperText>
             </FormControl>
             <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
-            {success && (
-              <Alert severity='success'>
-                <Typography variant='code'>Learning successfully created!</Typography>
-              </Alert>
-            )}
           </Stack>
         </AccordionDetails>
       </Accordion>
-      
+      {success && (
+        <Alert severity='success'>
+          <Typography variant='code'>Learning successfully created!</Typography>
+        </Alert>
+      )}
     </React.Fragment>
   )
 }

@@ -87,3 +87,6 @@ h7_n1 = Note.create(heading: l7_h1, content: 'Summaryyy - Sunt minim do dolor ve
 t1 = Tag.create(name: 'Main', deletable: false, user_id: user1.id)
 
 t1.learnings << [l1, l2, l3, l4, l5, l6, l7]
+
+Tag.create(name: 'Completed', deletable: false, user_id: user1.id)
+Tag.create(name: 'Test', deletable: false, user_id: user1.id)

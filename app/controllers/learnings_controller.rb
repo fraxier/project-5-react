@@ -33,6 +33,10 @@ class LearningsController < ApplicationController
   def create
     learning = Learning.new(learning_params)
     learning.user_id = current_user.id
+    tags = params[:tags]
+    tags.each do |tag|
+      learning.tags << Tag.find(tag[:id])
+    end
     if learning.save
       render json: {
         status: :created,
@@ -44,6 +48,11 @@ class LearningsController < ApplicationController
         errors: learning.errors.full_messages
       }
     end
+  rescue StandardError => e
+    render json: {
+      status: 500,
+      errors: e
+    }
   end
 
   def recent

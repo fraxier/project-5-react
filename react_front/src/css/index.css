@@ -34,25 +34,3 @@ h5 {font-size: 1.125rem;}
 
 small, .text_small {font-size: 0.889rem;}
 
-
-@keyframes wave {
-  0% {
-    transform: translateX(-50%) scale(1);
-  }
-  25% {
-    transform: translateX(-30%) scale(1.2);
-  }
-  50% {
-    transform: translateX(-10%) scale(1.4);
-  }
-  75% {
-    transform: translateX(10%) scale(1.2);
-  }
-  100% {
-    transform: translateX(30%) scale(1);
-  }
-}
-
-.wave {
-  animation: wave 5s ease-in-out infinite;
-}

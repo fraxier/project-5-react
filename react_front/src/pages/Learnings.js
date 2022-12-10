@@ -20,7 +20,7 @@ export default function Learnings() {
     <React.Fragment>
       <Typography variant="h4">Learnings</Typography>
       <NewLearning />
-      <Paper sx={{ p:3 }}>
+      <Paper sx={{ p: 3}}>
         {pageData.map((learning) => (
           <Box sx={{ my: 2 }} key={learning.id}>
             <Link href={Utilities.urls.learning(learning.id)}>
