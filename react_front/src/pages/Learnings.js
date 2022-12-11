@@ -13,13 +13,17 @@ export default function Learnings() {
     .then(res => res.json())
     .then(body => {setPageData(body)})
   }, [])
-
+  console.log(pageData)
   if (pageData === undefined) return (<LoadingWheel />)
   
+  const setLearning = () => {
+    
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h4">Learnings</Typography>
-      <NewLearning />
+      <NewLearning setLearning={setLearning} />
       <Paper sx={{ p: 3}}>
         {pageData.map((learning) => (
           <Box sx={{ my: 2 }} key={learning.id}>

@@ -14,7 +14,7 @@ const MenuProps = {
   }
 };
 
-export default function NewLearning() {
+export default function NewLearning({ setLearning }) {
   const [open, setOpen] = useState(false)
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([])
@@ -71,6 +71,7 @@ export default function NewLearning() {
         setSelectedTags([])
         setSuccess(true)
         setOpen(false)
+        setLearning(body.learning)
       }
     })
   }
