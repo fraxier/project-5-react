@@ -1,7 +1,7 @@
 require 'pry'
 class LearningsController < ApplicationController
   def index
-    learnings = current_user.learnings
+    learnings = current_user.learnings.order(updated_at: :desc)
     if learnings
       render json: learnings
     else
@@ -47,6 +47,21 @@ class LearningsController < ApplicationController
         status: 500,
         errors: learning.errors.full_messages
       }
+    end
+  rescue StandardError => e
+    render json: {
+      status: 500,
+      errors: e
+    }
+  end
+
+  def update
+    if learning_params[:updated_at] == true
+      learning = Learning.find(learning_params[:id])
+      if learning
+        learning[:updated_at] = DateTime.now
+        render json: { results: 'Updated successfully' }
+      end
     end
   rescue StandardError => e
     render json: {
@@ -105,6 +120,6 @@ class LearningsController < ApplicationController
   private
 
   def learning_params
-    params.require(:learning).permit(:name, :motivation, :tags)
+    params.require(:learning).permit(:id, :name, :motivation, :updated_at, :tags)
   end
 end

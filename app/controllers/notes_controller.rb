@@ -1,24 +1,25 @@
 class NotesController < ApplicationController
   def index
-    @notes = @user.find_notes(params[:subject_id], params[:topic_id])
-    if @notes
-      render json: {
-        notes: @notes
-      }
+    headings = current_user&.headings
+    heading = headings&.find(params[:heading_id])
+    notes = heading&.notes
+    if notes
+      render json: notes
     else
       render json: {
         status: 500,
-        errors: ['no notes found for this topic']
+        errors: ['no notes found for this heading']
       }
     end
   end
 
   def show
-    @note = @user.find_note(params[:subject_id], params[:topic_id], params[:id])
-    if @note
-      render json: {
-        note: @note
-      }
+    headings = current_user&.headings
+    heading = headings&.find(note_params[:heading_id])
+    notes = heading&.notes
+    note = notes&.find(note_params[:id])
+    if note
+      render json: note
     else
       render json: {
         status: 500,
@@ -28,23 +29,23 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(topic_params)
-    if @note.save
+    note = Note.new(note_params)
+    if note.save
       render json: {
         status: :created,
-        note: @note
+        note:
       }
     else
       render json: {
         status: 500,
-        errors: @note.errors.full_messages
+        errors: note.errors.full_messages
       }
     end
   end
 
   private
 
-  def topic_params
-    params.require(:note).permit(:content, :topic_id)
+  def note_params
+    params.require(:note).permit(:content, :heading_id)
   end
 end

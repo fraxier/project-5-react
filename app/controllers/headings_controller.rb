@@ -1,10 +1,10 @@
 require 'pry'
 class HeadingsController < ApplicationController
   def index
-    @headings = @user.find_headings(params[:subject_id])
-    if @headings
+    headings = current_user&.headings
+    if headings
       render json: {
-        headings: @headings
+        headings:
       }
     else
       render json: {
@@ -15,30 +15,29 @@ class HeadingsController < ApplicationController
   end
 
   def show
-    @heading = @user.find_heading(params[:subject_id], params[:id])
-    if @heading
-      render json: {
-        heading: @heading
-      }
+    headings = current_user&.headings
+    heading = headings&.find(url_params[:id])
+    if heading
+      render json: heading
     else
       render json: {
         status: 500,
-        errors: ["no heading of id #{params[:id]} found for this subject"]
+        errors: ["no heading of id #{heading_params[:id]} found"]
       }
     end
   end
 
   def create
-    @heading = Heading.new(heading_params)
-    if @heading.save
+    heading = Heading.new(heading_params)
+    if heading.save
       render json: {
         status: :created,
-        heading: @heading
+        heading:
       }
     else
       render json: {
         status: 500,
-        errors: @heading.errors.full_messages
+        errors: heading.errors.full_messages
       }
     end
   end
@@ -47,5 +46,9 @@ class HeadingsController < ApplicationController
 
   def heading_params
     params.require(:heading).permit(:name, :description, :subject_id)
+  end
+
+  def url_params
+    params.permit(:learning_id, :id)
   end
 end

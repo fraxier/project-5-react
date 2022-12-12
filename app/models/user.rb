@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :learnings
   has_many :tags
+  has_many :headings, through: :learnings
+  has_many :notes, through: :headings
 
   def find_learning(learning_id)
     learnings.find_by(id: learning_id)

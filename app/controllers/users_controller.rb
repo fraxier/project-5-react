@@ -4,10 +4,10 @@ class UsersController < ApplicationController
   skip_before_action :check_user, only: %i[index]
 
   def index
-    @users = User.all
-    if @users
+    users = User.all
+    if users
       render json: {
-        users: @users
+        users:
       }
     else
       render json: {
@@ -18,10 +18,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user
-      render json: {
-        user: @user
-      }
+    if user
+      render json: user
     else
       render json: {
         status: 500,
@@ -31,17 +29,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
+    user = User.new(user_params)
+    if user.save
       login!
       render json: {
         status: :created,
-        user: @user
+        user:
       }
     else
       render json: {
         status: 500,
-        errors: @user.errors
+        errors: user.errors.full_messages
       }
     end
   end
