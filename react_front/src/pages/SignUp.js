@@ -51,7 +51,7 @@ export default function SignUp() {
           })
         }
       } else {
-        navigate('/')
+        navigate('/dash')
       }
     })
   };

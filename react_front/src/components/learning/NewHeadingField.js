@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Stack } from "@mui/system";
 
-export default function NewHeading() {
+export default function NewHeadingField() {
   const [open, setOpen] = useState(false)
   const [submissionData, setsubmissionData] = useState({name: ''})
   const [formErrors, setFormErrors] = useState({message: ''})
@@ -16,7 +16,7 @@ export default function NewHeading() {
   }
 
   const handleSubmit = () => {
-    
+
   }
 
   return (

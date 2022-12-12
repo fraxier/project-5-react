@@ -14,7 +14,7 @@ const MenuProps = {
   }
 };
 
-export default function NewLearning({ setLearning }) {
+export default function NewLearningField({ setLearning }) {
   const [open, setOpen] = useState(false)
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([])

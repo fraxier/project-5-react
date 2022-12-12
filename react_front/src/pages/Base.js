@@ -14,6 +14,8 @@ import SideDrawer from '../components/SideDrawer';
 import { Link } from '@mui/material';
 import Learning from './Learning';
 import Learnings from './Learnings';
+import NewNote from './NewNote';
+import Note from './Note';
 
 export default function Base() {
   const [open, setOpen] = useState(true);
@@ -76,6 +78,8 @@ export default function Base() {
           <Route path='/login' element={ <Navigate to='/' /> } />
           <Route path='/learnings' element={ <Learnings />} />
           <Route path='/learnings/:id' element={ <Learning /> } />
+          <Route path='/learnings/:learningId/headings/:id/note/new' element={ <NewNote /> } />
+          <Route path='/notes/:id' element={ <Note /> } />
           <Route path='/' element={ <Navigate to='/dash' /> } />
         </Routes>
       </Box>

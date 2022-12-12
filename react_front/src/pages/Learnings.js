@@ -1,7 +1,7 @@
 import { Link, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import NewLearning from "../components/learning/NewLearning";
+import NewLearningField from "../components/learning/NewLearningField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 
@@ -16,14 +16,14 @@ export default function Learnings() {
   console.log(pageData)
   if (pageData === undefined) return (<LoadingWheel />)
   
-  const setLearning = () => {
-    
+  const setLearning = (newLearning) => {
+    setPageData([newLearning, ...pageData])
   }
 
   return (
     <React.Fragment>
       <Typography variant="h4">Learnings</Typography>
-      <NewLearning setLearning={setLearning} />
+      <NewLearningField setLearning={setLearning} />
       <Paper sx={{ p: 3}}>
         {pageData.map((learning) => (
           <Box sx={{ my: 2 }} key={learning.id}>
