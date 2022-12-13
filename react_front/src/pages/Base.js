@@ -14,7 +14,7 @@ import SideDrawer from '../components/SideDrawer';
 import { Link } from '@mui/material';
 import LearningPage from './LearningPage';
 import LearningsPage from './LearningsPage';
-import NewNote from './NewNote';
+import NewNote from './NewNotePage';
 import Note from './NotePage';
 import HeadingPage from './HeadingPage';
 

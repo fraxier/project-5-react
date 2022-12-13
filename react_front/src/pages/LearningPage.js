@@ -33,7 +33,7 @@ export default function LearningPage() {
   return (
     <React.Fragment>
       <Typography variant="h4">{pageData.learning.name}</Typography>
-      <NewHeading />
+      <NewHeading learningId={id} />
       {!pageData.headings && (
         <Container>
           <Typography variant="h6">No headings have been added!</Typography>

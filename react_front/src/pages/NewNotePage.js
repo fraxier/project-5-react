@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadingWheel from '../components/LoadingWheel';
 import Utilities from '../Utilities';
 
-export default function NewNote() {
+export default function NewNotePage() {
 	const [heading, setHeading] = useState();
 	const { id } = useParams();
 	const [content, setContent] = useState();

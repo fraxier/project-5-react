@@ -2,8 +2,9 @@ import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, TextField
 import React, { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Stack } from "@mui/system";
+import Utilities from "../../Utilities";
 
-export default function NewHeadingField() {
+export default function NewHeadingField({ learningId }) {
   const [open, setOpen] = useState(false)
   const [submissionData, setsubmissionData] = useState({name: ''})
   const [formErrors, setFormErrors] = useState({message: ''})
@@ -12,11 +13,18 @@ export default function NewHeadingField() {
   }
 
   const handleChange = (event) => {
-    setsubmissionData({ name: event.target.value })
+    setsubmissionData({learningId: learningId, name: event.target.value })
   }
 
   const handleSubmit = () => {
-
+    fetch(Utilities.railsUrls.createHeading(), {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(submissionData)
+    }).then
   }
 
   return (
