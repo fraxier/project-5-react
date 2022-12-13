@@ -17,8 +17,12 @@ class HeadingsController < ApplicationController
   def show
     headings = current_user&.headings
     heading = headings&.find(url_params[:id])
+    notes = heading.notes
     if heading
-      render json: heading
+      render json: {
+        heading:,
+        notes:
+      }
     else
       render json: {
         status: 500,

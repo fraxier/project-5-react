@@ -1,11 +1,11 @@
-import { Link, Paper, Typography } from "@mui/material";
+import { Chip, Link, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import NewLearningField from "../components/learning/NewLearningField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 
-export default function Learnings() {
+export default function LearningsPage() {
   const [pageData, setPageData] = useState()
 
   useEffect(() => {
@@ -25,20 +25,24 @@ export default function Learnings() {
       <Typography variant="h4">Learnings</Typography>
       <NewLearningField setLearning={setLearning} />
       <Paper sx={{ p: 3}}>
-        {pageData.map((learning) => (
-          <Box sx={{ my: 2 }} key={learning.id}>
-            <Link href={Utilities.urls.learning(learning.id)}>
-              <Typography variant="h5">{learning.name}</Typography>
+        {pageData.map((row) => (
+          <Box sx={{ my: 2 }} key={row.learning.id}>
+            <Link href={Utilities.urls.learning(row.learning.id)}>
+              <Typography variant="h5">{row.learning.name}</Typography>
             </Link>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Typography variant="caption">
-                Created: {Utilities.niceDate(learning.created_at)}
+                Created: {Utilities.niceDateTime(row.learning.created_at)}
               </Typography>
               <Typography variant="caption">
-                Last Opened: {Utilities.niceDate(learning.updated_at)}
+                Last Opened: {Utilities.niceDateTime(row.learning.updated_at)}
               </Typography>
             </Box>
-            <Typography variant="body2">{learning.motivation}</Typography>
+            {row.tags && row.tags.map((tag) => (
+              <Chip key={tag.id} label={tag.name} color='primary' sx={{ mr: 1 }}/>
+            ))}
+            <br/>
+            <Typography variant="body">{row.learning.motivation}</Typography>
           </Box>
         ))}
       </Paper>

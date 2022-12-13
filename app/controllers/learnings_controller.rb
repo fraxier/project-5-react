@@ -1,7 +1,10 @@
 require 'pry'
 class LearningsController < ApplicationController
   def index
-    learnings = current_user.learnings.order(updated_at: :desc)
+    learnings = current_user.learnings&.order(updated_at: :desc)
+    learnings = learnings&.map do |learning|
+      { learning:, tags: learning.tags }
+    end
     if learnings
       render json: learnings
     else

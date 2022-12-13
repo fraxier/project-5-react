@@ -7,7 +7,7 @@ import NewHeading from "../components/learning/NewHeadingField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 
-export default function Learning() {
+export default function LearningPage() {
   const { id } = useParams();
   const [pageData, setPageData] = useState()
 
@@ -29,7 +29,7 @@ export default function Learning() {
   }, [])
   
   if (pageData === undefined) return (<LoadingWheel />)
-  console.log(pageData.learning.id)
+  console.log(pageData)
   return (
     <React.Fragment>
       <Typography variant="h4">{pageData.learning.name}</Typography>
@@ -45,7 +45,7 @@ export default function Learning() {
           <Link href={`${Utilities.urls.heading(row.heading.id)}`}>
             <Typography variant="h6">{row.heading.name}</Typography>
           </Link>
-          <AddNoteButton href={Utilities.urls.addNote(pageData.learning.id, row.heading.id)} />
+          <AddNoteButton href={Utilities.urls.addNote(row.heading.id)} />
           {row.notes.length === 0 && (
             <Container>
               <Typography variant="h6">No notes added here yet!</Typography>

@@ -12,10 +12,11 @@ import Dashboard from './Dashboard';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SideDrawer from '../components/SideDrawer';
 import { Link } from '@mui/material';
-import Learning from './Learning';
-import Learnings from './Learnings';
+import LearningPage from './LearningPage';
+import LearningsPage from './LearningsPage';
 import NewNote from './NewNote';
-import Note from './Note';
+import Note from './NotePage';
+import HeadingPage from './HeadingPage';
 
 export default function Base() {
   const [open, setOpen] = useState(true);
@@ -76,9 +77,10 @@ export default function Base() {
         <Routes>
           <Route path='/dash' element={ <Dashboard /> } />
           <Route path='/login' element={ <Navigate to='/' /> } />
-          <Route path='/learnings' element={ <Learnings />} />
-          <Route path='/learnings/:id' element={ <Learning /> } />
-          <Route path='/learnings/:learningId/headings/:id/note/new' element={ <NewNote /> } />
+          <Route path='/learnings' element={ <LearningsPage />} />
+          <Route path='/learnings/:id' element={ <LearningPage /> } />
+          <Route path='/headings/:id' element={ <HeadingPage /> } />
+          <Route path='/headings/:id/note/new' element={ <NewNote /> } />
           <Route path='/notes/:id' element={ <Note /> } />
           <Route path='/' element={ <Navigate to='/dash' /> } />
         </Routes>

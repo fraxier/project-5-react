@@ -14,12 +14,13 @@ class NotesController < ApplicationController
   end
 
   def show
-    headings = current_user&.headings
-    heading = headings&.find(note_params[:heading_id])
-    notes = heading&.notes
-    note = notes&.find(note_params[:id])
+    note = Note.find(url_params[:id])
+    heading = note.heading
     if note
-      render json: note
+      render json: {
+        note:,
+        heading:
+      }
     else
       render json: {
         status: 500,
@@ -47,5 +48,9 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:content, :heading_id)
+  end
+
+  def url_params
+    params.permit(:id)
   end
 end

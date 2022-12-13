@@ -6,13 +6,13 @@ import Utilities from '../Utilities';
 
 export default function NewNote() {
 	const [heading, setHeading] = useState();
-	const { learningId, id } = useParams();
+	const { id } = useParams();
 	const [content, setContent] = useState();
 	const [formErrors, setFormErrors] = useState({message: ''});
   const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch(Utilities.railsUrls.getHeading(learningId, id), { credentials: 'include' })
+		fetch(Utilities.railsUrls.getHeading(id), { credentials: 'include' })
 			.then((res) => res.json())
 			.then((body) => {
 				if ('error' in body) {
@@ -32,11 +32,11 @@ export default function NewNote() {
 		const body = {
 			note: {
 				content: data.get('content'),
-				heading_id: heading.id,
+				heading_id: id,
 			},
 		};
     setFormErrors({message: ''})
-		fetch(Utilities.railsUrls.createNote(learningId, id), {
+		fetch(Utilities.railsUrls.createNote(id), {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -49,7 +49,7 @@ export default function NewNote() {
 				if ('errors' in body) {
 					setFormErrors({ message: body.errors });
 				} else {
-          navigate(`/learnings/${learningId}`)
+          navigate(`/headings/${id}`)
         }
 			});
 	};
