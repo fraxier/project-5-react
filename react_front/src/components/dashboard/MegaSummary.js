@@ -35,9 +35,7 @@ export default function MegaSummary({ data }) {
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography>Most used tags:</Typography>
             <Box>
-              {data.most_common_tags && data.most_common_tags.map((tag) => {
-                console.log(tag)
-                return (
+              {data.most_common_tags && data.most_common_tags.map((tag) => (
                 <ColoredChip key={tag.id}
                   bgColor={tag.bg_color}
                   color={tag.font_color}
@@ -45,7 +43,7 @@ export default function MegaSummary({ data }) {
                   label={tag.name} 
                   size='small'
                 />
-              )})}
+              ))}
             </Box>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

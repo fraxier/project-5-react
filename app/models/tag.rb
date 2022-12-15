@@ -8,11 +8,13 @@ class Tag < ApplicationRecord
   belongs_to :user
 
   def self.main_tag_learnings(user_id)
-    Tag.where(user_id:, name: 'Main')&.first&.learnings
+    learnings = Tag.where(user_id:, name: 'Main')&.first&.learnings
+    learnings.collect { |learn| { learn:, tags: learn.tags } }
   end
 
   def self.completed_learnings(user_id)
-    Tag.where(user_id:, name: 'Completed')&.first&.learnings
+    learnings = Tag.where(user_id:, name: 'Completed')&.first&.learnings
+    learnings.collect { |learn| { learn:, tags: learn.tags } }
   end
 
   def self.most_common(user_id)

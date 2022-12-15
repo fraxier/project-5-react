@@ -12,6 +12,7 @@ class Learning < ApplicationRecord
   validates :motivation, length: { minimum: 3 }
 
   def self.recent_learnings(user_id, num = 5)
-    Learning.where(user_id:)&.order(updated_at: :desc)&.limit(num)
+    learnings = Learning.where(user_id:)&.order(updated_at: :desc)&.limit(num)
+    learnings.collect { |learn| { learn:, tags: learn.tags } }
   end
 end

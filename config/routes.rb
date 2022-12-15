@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/recent_learnings/:num', to: 'learnings#recent'
   get '/recent_learnings', to: 'learnings#recent'
 
-  get '/mega_summary', to: 'learnings#mega_summary'
+  get '/mega_summary', to: 'sessions#mega_summary'
 
   # resources :user, only: %i[index show create update] do
   #   resources :subject, only: %i[index show create update destroy] do
