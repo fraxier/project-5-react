@@ -17,7 +17,6 @@ class TagsController < ApplicationController
   def create
     tag = Tag.new(tag_params)
     tag&.user_id = current_user.id
-    binding.pry
     if tag.save
       render json: {
         status: :created,
@@ -31,11 +30,27 @@ class TagsController < ApplicationController
     end
   end
 
-  def new; end
+  def destroy
+    tag = Tag.find(url_params[:id])
+    if tag.user_id == session[:user_id] && tag.destroy
+      return render json: {
+        status: :delete,
+        tag: { id: url_params[:id], name: tag.name }
+      }
+    end
+    render json: {
+      status: 500,
+      errors: tag.errors.full_messages
+    }
+  end
 
   private
 
   def tag_params
-    params.require(:tag).permit(:name)
+    params.require(:tag).permit(:name, :bg_color, :font_color)
+  end
+
+  def url_params
+    params.permit(:id)
   end
 end

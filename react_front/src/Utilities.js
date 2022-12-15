@@ -28,6 +28,7 @@ export default class Utilities {
     loggedIn: () => this.railsBaseUrl + 'logged_in',
     megaSummary: () => this.railsBaseUrl + 'mega_summary',
     getTags: () => this.railsBaseUrl + 'tags',
+    getTag: (id) => this.railsBaseUrl + `tags/${id}`,
     getNote: (id) => this.railsBaseUrl + `notes/${id}`
   }
 

@@ -1,3 +1,4 @@
+require 'pry'
 class Tag < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { minimum: 2 }
@@ -6,6 +7,8 @@ class Tag < ApplicationRecord
   validates :font_color, presence: true
   has_and_belongs_to_many :learnings
   belongs_to :user
+
+  before_destroy :can_destroy?, prepend: true
 
   def self.main_tag_learnings(user_id)
     learnings = Tag.where(user_id:, name: 'Main')&.first&.learnings
@@ -46,5 +49,14 @@ class Tag < ApplicationRecord
       learnings = tag.learnings
       { name: learnings, count: learnings.count }
     end
+  end
+
+  private
+
+  def can_destroy?
+    return true if deletable
+
+    errors.add(:base, 'This tag is not deletable')
+    throw :abort
   end
 end

@@ -15,9 +15,9 @@ export default function ColoredChip({ bgColor, color, label, size }) {
   return (
     <React.Fragment>
       {(size === 'large') && (
-        <LargeChip label={label} />
+        <LargeChip className="tag" label={label} />
       ) || (
-        <StyleChip label={label} />
+        <StyleChip className="tag" label={label} />
       )}
     </React.Fragment>
   )
