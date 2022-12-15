@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import NewLearningField from "../components/learning/NewLearningField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
+import ColoredChip from '../components/ColoredChip'
 
 export default function LearningsPage() {
   const [pageData, setPageData] = useState()
@@ -39,7 +40,7 @@ export default function LearningsPage() {
               </Typography>
             </Box>
             {row.tags && row.tags.map((tag) => (
-              <Chip key={tag.id} label={tag.name} color='primary' sx={{ mr: 1 }}/>
+              <ColoredChip key={tag.id} label={tag.name} bgColor={tag.bg_color} color={tag.font_color} />
             ))}
             <br/>
             <Typography variant="body">{row.learning.motivation}</Typography>
