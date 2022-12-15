@@ -63,6 +63,7 @@ class LearningsController < ApplicationController
       learning = Learning.find(learning_params[:id])
       if learning
         learning[:updated_at] = DateTime.now
+        learning.save
         render json: { results: 'Updated successfully' }
       end
     end

@@ -49,7 +49,7 @@ class HeadingsController < ApplicationController
   private
 
   def heading_params
-    params.require(:heading).permit(:name, :description, :subject_id)
+    params.require(:heading).permit(:name, :description, :learning_id)
   end
 
   def url_params

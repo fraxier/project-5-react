@@ -14,7 +14,28 @@ class TagsController < ApplicationController
 
   def show; end
 
-  def create; end
+  def create
+    tag = Tag.new(tag_params)
+    tag&.user_id = current_user.id
+    binding.pry
+    if tag.save
+      render json: {
+        status: :created,
+        tag:
+      }
+    else
+      render json: {
+        status: 500,
+        errors: tag.errors.full_messages
+      }
+    end
+  end
 
   def new; end
+
+  private
+
+  def tag_params
+    params.require(:tag).permit(:name)
+  end
 end

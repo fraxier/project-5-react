@@ -22,7 +22,7 @@ export default function LearningsPage() {
 
   return (
     <React.Fragment>
-      <Typography variant="h4">Learnings</Typography>
+      <Typography variant="h4" className='fit-content'>Learnings</Typography>
       <NewLearningField setLearning={setLearning} />
       <Paper sx={{ p: 3}}>
         {pageData.map((row) => (

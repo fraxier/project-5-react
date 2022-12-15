@@ -21,6 +21,7 @@ export default class Utilities {
     getLearnings: () => this.railsBaseUrl + 'learnings',
     getLearning: (id) => this.railsBaseUrl + `learnings/${id}`,
     getHeading: (id) => this.railsBaseUrl + `/headings/${id}`,
+    createTag: () => this.railsUrls.getTags(),
     createLearning: () => this.railsUrls.getLearnings(),
     createHeading: () => this.railsBaseUrl + '/headings',
     createNote: () => this.railsBaseUrl + `notes`,

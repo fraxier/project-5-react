@@ -1,5 +1,9 @@
 class Tag < ApplicationRecord
   validates :name, presence: true
+  validates :name, length: { minimum: 2 }
+  validates :name, uniqueness: { case_sensitive: false }
+  validates :bg_color, presence: true
+  validates :font_color, presence: true
   has_and_belongs_to_many :learnings
   belongs_to :user
 
@@ -13,7 +17,7 @@ class Tag < ApplicationRecord
 
   def self.most_common(user_id)
     ActiveRecord::Base.connection.execute(
-      "SELECT Tags.id, name, COUNT(learning_id) as count FROM
+      "SELECT Tags.id, Tags.bg_color, Tags.font_color, name, COUNT(learning_id) as count FROM
       Tags INNER JOIN Learnings_Tags
       WHERE user_id = #{user_id}
       GROUP BY Tags.id

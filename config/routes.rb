@@ -11,15 +11,6 @@ Rails.application.routes.draw do
 
   get '/mega_summary', to: 'learnings#mega_summary'
 
-  ### Model Routes
-  # user:
-  # get user details, create new user, udpate user details, login/logout user
-  # subject:
-  # get user subjects, create new user subject, udpate user subject, delete user subject
-  # topic:
-  # get subject topics, create new subject topic, delete subject topic
-  # notes:
-  # get topic notes, create new topic note, udpate topic note, delete topic note
   # resources :user, only: %i[index show create update] do
   #   resources :subject, only: %i[index show create update destroy] do
   #     resources :topic, only: %i[index show create destroy] do

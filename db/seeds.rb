@@ -41,7 +41,7 @@ l5 = Learning.create(
   name: 'How to document goodly, et al',
   motivation: "It turns out a lot of the things I do don't get written down or anything so a lot of things I do are forgotten to time and space.",
   user: user1
-  )
+)
 
 l6 = Learning.create(
   name: 'Colour Theory',
@@ -76,17 +76,44 @@ l6_h2 = Heading.create(name: 'Colours from real world to canvas', learning: l6)
 l7_h1 = Heading.create(name: 'Summary', learning: l7)
 l7_h2 = Heading.create(name: 'Is dieting safe', learning: l7)
 
-h1_n1 = Note.create(heading: l1_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h2_n1 = Note.create(heading: l2_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h3_n1 = Note.create(heading: l3_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h4_n1 = Note.create(heading: l4_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h5_n1 = Note.create(heading: l5_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h6_n1 = Note.create(heading: l6_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
-h7_n1 = Note.create(heading: l7_h1, content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h1_n1 = Note.create(heading: l1_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h2_n1 = Note.create(heading: l2_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h3_n1 = Note.create(heading: l3_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h4_n1 = Note.create(heading: l4_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h5_n1 = Note.create(heading: l5_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h6_n1 = Note.create(heading: l6_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+h7_n1 = Note.create(heading: l7_h1,
+                    content: 'Summaryyy - Sunt minim do dolor velit occaecat elit quis ad ea et nulla dolore. Incididunt commodo elit aliqua amet enim eiusmod deserunt consectetur eiusmod ipsum cupidatat mollit mollit duis. Adipisicing dolor magna tempor aliquip id.')
+
+def calc_font_color(color)
+  rgbval = color.slice(1, 6).hex
+  r = rgbval >> 16
+  g = (rgbval & 65_280) >> 8
+  b = rgbval & 255
+  brightness = (r * 0.299) + (g * 0.587) + (b * 0.114)
+  brightness > 160 ? '#000' : '#fff'
+end
 
 t1 = Tag.create(name: 'Main', deletable: false, user_id: user1.id)
 
 t1.learnings << [l1, l2, l3, l4, l5, l6, l7]
+t1.bg_color = '#FF0000'
+t1.font_color = calc_font_color t1.bg_color
 
-Tag.create(name: 'Completed', deletable: false, user_id: user1.id)
-Tag.create(name: 'Test', deletable: false, user_id: user1.id)
+t2 = Tag.create(name: 'Completed', deletable: false, user_id: user1.id)
+t2.bg_color = '#fffc00'
+t2.font_color = calc_font_color t2.bg_color
+
+t3 = Tag.create(name: 'Test', deletable: false, user_id: user1.id)
+t3.bg_color = '#147DF5'
+t3.font_color = calc_font_color t3.bg_color
+
+t1.save
+t2.save
+t3.save

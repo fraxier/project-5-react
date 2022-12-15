@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Stack } from "@mui/system";
 import Utilities from "../../Utilities";
 
-export default function NewHeadingField({ learningId }) {
+export default function NewHeadingField({ learningId, setNewHeading }) {
   const [open, setOpen] = useState(false)
   const [submissionData, setsubmissionData] = useState({name: ''})
   const [formErrors, setFormErrors] = useState({message: ''})
@@ -13,7 +13,7 @@ export default function NewHeadingField({ learningId }) {
   }
 
   const handleChange = (event) => {
-    setsubmissionData({learningId: learningId, name: event.target.value })
+    setsubmissionData({learning_id: learningId, name: event.target.value })
   }
 
   const handleSubmit = () => {
@@ -24,7 +24,16 @@ export default function NewHeadingField({ learningId }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(submissionData)
-    }).then
+    }).then(res => res.json())
+    .then(body => {
+      if ('errors' in body) {
+        setFormErrors({ message: body.errors })
+      } else {
+        setNewHeading(body.heading)
+        setsubmissionData({name: ''})
+        setOpen(false)
+      }
+    })
   }
 
   return (

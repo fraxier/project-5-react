@@ -34,3 +34,6 @@ h5 {font-size: 1.125rem;}
 
 small, .text_small {font-size: 0.889rem;}
 
+.fit-content {
+  width: fit-content;
+}

@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Chip } from '@mui/material';
 import Utilities from '../../Utilities';
+import ColoredChip from '../ColoredChip';
 
 export default function MegaSummary({ data }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -34,13 +35,17 @@ export default function MegaSummary({ data }) {
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography>Most used tags:</Typography>
             <Box>
-              {data.most_common_tags && data.most_common_tags.map((tag) => (
-                <Chip key={tag.id}
+              {data.most_common_tags && data.most_common_tags.map((tag) => {
+                console.log(tag)
+                return (
+                <ColoredChip key={tag.id}
+                  bgColor={tag.bg_color}
+                  color={tag.font_color}
                   icon={<Typography fontSize={1}>{tag.count}</Typography>} 
                   label={tag.name} 
                   size='small'
                 />
-              ))}
+              )})}
             </Box>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

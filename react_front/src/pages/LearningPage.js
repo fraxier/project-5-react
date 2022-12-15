@@ -27,13 +27,17 @@ export default function LearningPage() {
     .then(res => res.json())
     .then(body => console.log(body))
   }, [])
+
+  const setNewHeading = (heading) => {
+    setPageData({learning: pageData.learning, headings: [{ heading: heading, notes: [] }, ...pageData.headings]})
+  }
   
   if (pageData === undefined) return (<LoadingWheel />)
   console.log(pageData)
   return (
     <React.Fragment>
       <Typography variant="h4">{pageData.learning.name}</Typography>
-      <NewHeading learningId={id} />
+      <NewHeading learningId={id} setNewHeading={setNewHeading} />
       {!pageData.headings && (
         <Container>
           <Typography variant="h6">No headings have been added!</Typography>
