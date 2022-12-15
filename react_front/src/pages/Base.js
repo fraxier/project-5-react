@@ -18,6 +18,7 @@ import NewNote from './NewNotePage';
 import Note from './NotePage';
 import HeadingPage from './HeadingPage';
 import TagsPage from './TagsPage';
+import AccountPage from './AccountPage';
 
 export default function Base() {
   const [open, setOpen] = useState(true);
@@ -78,6 +79,7 @@ export default function Base() {
         <Routes>
           <Route path='/dash' element={ <Dashboard /> } />
           <Route path='/login' element={ <Navigate to='/' /> } />
+          <Route path='/account' element={ <AccountPage /> } />
           <Route path='/tags' element={ <TagsPage /> } />
           <Route path='/learnings' element={ <LearningsPage />} />
           <Route path='/learnings/:id' element={ <LearningPage /> } />

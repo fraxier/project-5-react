@@ -1,9 +1,11 @@
-import { Box, Chip, Paper, Typography } from "@mui/material";
+import { Box, Chip, IconButton, Paper, Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import ColoredChip from "../components/ColoredChip";
 import NewTagField from "../components/learning/NewTagField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function TagsPage() {
   const [pageData, setPageData] = useState()
@@ -31,10 +33,15 @@ export default function TagsPage() {
       <Box>
         <Typography variant="h4" sx={{ mb: 2 }}>Available Tags</Typography>
         <NewTagField setNewTag={setNewTag}/>
-        <Paper elevation={1} sx={{ p:3, display: 'flex', justifyContent: 'space-evenly' }}>
-          {pageData.map((tag) => (
-            <ColoredChip key={tag.id} label={tag.name} size='large' bgColor={tag.bg_color} color={tag.font_color} />
-          ))}
+        <Paper elevation={1} sx={{ p:3}}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+            {pageData.map((tag) => (
+              <Stack direction='row' spacing={1} key={tag.id} sx={{ alignItems: 'center', mr: 2 }}>
+                <ColoredChip label={tag.name} size='large' bgColor={tag.bg_color} color={tag.font_color} />
+                <IconButton><DeleteForeverIcon /></IconButton>
+              </Stack>
+            ))}
+          </Box>
         </Paper>
       </Box>
     </React.Fragment>

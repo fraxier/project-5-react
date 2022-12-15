@@ -4,7 +4,7 @@ import Utilities from "../../Utilities";
 import ColoredChip from "../ColoredChip";
 
 export default function LearningCard({ data }) {
-  console.log(data)
+
   return (
     <React.Fragment>
     {data.learn && (

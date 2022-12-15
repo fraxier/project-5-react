@@ -15,14 +15,14 @@ const EmptyCard = (msg, href = Utilities.urls.learnings()) => (
 )
 
 export default function RowSummary({ data, cardType }) {
-
+  
   return (
     <Stack direction='row' spacing={2} sx={{
       overflowX: 'auto',
       p: 2
     }}>
-      {data && data.map((learn) => (
-          <LearningCard key={learn.id} data={learn} />
+      {data && data.map((rows, i) => (
+          <LearningCard key={rows.learn.id} data={rows} />
       ))}
       {!data && (
         cardType === Utilities.cardTypes.RECENTS && (EmptyCard(`You haven't done any learning recently but that's ok you can always start right now!`))
