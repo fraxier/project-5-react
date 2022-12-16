@@ -1,4 +1,4 @@
-import { Box, Link, Paper, Typography } from "@mui/material";
+import { Box, IconButton, Link, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import AddNoteButton from "../components/learning/AddNoteButton";
 import NewHeading from "../components/learning/NewHeadingField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function LearningPage() {
   const { id } = useParams();
@@ -46,10 +47,12 @@ export default function LearningPage() {
     
       {pageData.headings.map((row) => (
         <Paper key={row.heading.id} elevation={5} sx={{ p:3, my:2 }}>
-          <Link href={`${Utilities.urls.heading(row.heading.id)}`}>
-            <Typography variant="h6">{row.heading.name}</Typography>
-          </Link>
-          <AddNoteButton href={Utilities.urls.addNote(row.heading.id)} />
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', mb: 2, justifyContent: 'space-between'}}>
+            <Link href={`${Utilities.urls.heading(row.heading.id)}`}>
+              <Typography variant="h6">{row.heading.name}</Typography>
+            </Link>
+            <AddNoteButton href={Utilities.urls.addNote(row.heading.id)} />
+          </Box>
           {row.notes.length === 0 && (
             <Container>
               <Typography variant="h6">No notes added here yet!</Typography>
@@ -57,10 +60,10 @@ export default function LearningPage() {
           )}
           {row.notes.map((note) => (
             <Box key={note.id}>
-              <Link href={Utilities.urls.getNote(note.id)}>
-                <Typography variant='caption'>Updated at: {Utilities.niceDate(note.updated_at)}</Typography>
-              </Link>
               <Typography variant='body1'>{Utilities.limitString(note.content, 250)}</Typography>
+              <Button color="primary" href={Utilities.urls.getNote(note.id)}>
+                <Typography variant="caption">Read note</Typography><OpenInNewIcon />
+              </Button>
             </Box>
           ))}
         </Paper>
