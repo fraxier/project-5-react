@@ -1,7 +1,7 @@
-import { Box, IconButton, Link, Paper, Typography } from "@mui/material";
+import { Box, Button, Link, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AddNoteButton from "../components/learning/AddNoteButton";
 import NewHeading from "../components/learning/NewHeadingField";
 import LoadingWheel from "../components/LoadingWheel";

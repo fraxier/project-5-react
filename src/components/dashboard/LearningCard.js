@@ -8,7 +8,7 @@ export default function LearningCard({ data }) {
   return (
     <React.Fragment>
     {data.learn && (
-      <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
+      <Card elevation={2} sx={{ width: 275, flexShrink: 0, mr: 2, mb: 2 }}>
         <CardHeader 
           avatar={data.tags.map((tag) => (
             <ColoredChip key={tag.id} bgColor={tag.bg_color} color={tag.font_color} label={tag.name} size='small' />
@@ -30,7 +30,7 @@ export default function LearningCard({ data }) {
       </Card>
     )}
     {!data && (
-        <Card elevation={2} sx={{ width: 275, flexShrink: 0 }}>
+        <Card elevation={2} sx={{ width: 275, flexShrink: 0, mr: 2, mb: 2 }}>
           <CardContent>
             <Typography variant='body2'>You haven't got something you're focusing on at the moment but that's ok get in there and get started!</Typography>
           </CardContent>
