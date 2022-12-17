@@ -14,7 +14,11 @@ export default function Dashboard() {
     fetch(Utilities.railsUrls.megaSummary(), {credentials: 'include'})
     .then(res => res.json())
     .then(body => {
-      setPageData(body)
+      if ('errors' in body) {
+        console.log(body)
+      } else {
+        setPageData(body)
+      }
     })
   }, [])
   

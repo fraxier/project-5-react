@@ -38,7 +38,7 @@ export default function Base() {
       if (body.logged_out) {
         window.location.reload(true)
       } else {
-        console.log('oh oh spaghettio!')
+        console.log(body)
       }
     })
   }

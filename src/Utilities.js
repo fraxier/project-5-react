@@ -6,8 +6,11 @@ export default class Utilities {
     return tooLong ? text.substr(0, length).concat(suffix) : text;
   }
 
-  static railsBaseUrl = 'https://lightnotes.fly.dev/'
-  static baseUrl = 'https://lightnotes-static.fly.dev/'
+  // static railsBaseUrl = 'https://lightnotes.fly.dev/'
+  // static baseUrl = 'https://lightnotes-static.fly.dev/'
+
+  static railsBaseUrl = 'http://localhost:3000/'
+  static baseUrl = 'http://localhost:3001/'
 
   static urls = {
     learning: (id) => this.baseUrl + `learnings/${id}`,
