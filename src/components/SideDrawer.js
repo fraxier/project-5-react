@@ -4,6 +4,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import { Link } from 'react-router-dom';
+import CrumbTree from './CrumbTree';
 
 
 export default function SideDrawer({ open }) {
@@ -34,6 +35,9 @@ export default function SideDrawer({ open }) {
             </ListItemIcon>
             <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
+          {text === 'Learnings' && (
+            <CrumbTree />
+          )}
         </ListItem>
       ))}
     </List>

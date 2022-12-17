@@ -1,3 +1,30 @@
 .tag {
   text-transform: capitalize;
 }
+
+@keyframes border-bottom-rainbow {
+  0% {
+      border-color: #139A43;
+  }
+  25% {
+      border-color: #2685E3;
+  }
+  50% {
+      border-color: #A639BF;
+  }
+  75% {
+    border-color: #2685E3;
+  }
+  100% {
+    border-color: #139A43;
+  }
+}
+
+
+
+.editable {
+  border: 2px solid transparent;
+  border-radius: 7px;
+  padding: .5rem;
+  animation: border-bottom-rainbow 1s infinite;
+}
