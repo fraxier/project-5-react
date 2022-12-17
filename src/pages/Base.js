@@ -19,6 +19,7 @@ import Note from './NotePage';
 import HeadingPage from './HeadingPage';
 import TagsPage from './TagsPage';
 import AccountPage from './AccountPage';
+import Utilities from '../Utilities';
 
 export default function Base() {
   const [open, setOpen] = useState(true);
@@ -28,7 +29,7 @@ export default function Base() {
   }
 
   const handleLogout = () => {
-    fetch('http://localhost:3000/logout', {
+    fetch(Utilities.railsUrls.logout(), {
       method: 'POST',
       credentials: 'include'
     })

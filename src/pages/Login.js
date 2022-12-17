@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Alert } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/features/sessionSlice';
+import Utilities from '../Utilities';
 
 function Copyright(props) {
   return (
@@ -45,7 +46,7 @@ export default function Login() {
       }
     }
 
-    fetch('http://localhost:3000/login', {
+    fetch(Utilities.railsUrls.login(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
 import Typography from '@mui/material/Typography';
 import { redirect, useNavigate } from 'react-router-dom'
+import Utilities from '../Utilities';
 
 export default function SignUp() {
   const baseState = {username: '', email: '', password: ''}
@@ -28,7 +29,7 @@ export default function SignUp() {
       }
     }
 
-    fetch('http://localhost:3000/user', {
+    fetch(Utilities.railsUrls.createUser(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

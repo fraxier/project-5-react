@@ -6,8 +6,8 @@ export default class Utilities {
     return tooLong ? text.substr(0, length).concat(suffix) : text;
   }
 
-  static railsBaseUrl = 'http://localhost:3000/'
-  static baseUrl = 'http://localhost:3001/'
+  static railsBaseUrl = 'https://lightnotes.fly.dev/'
+  static baseUrl = 'https://lightnotes-static.fly.dev/'
 
   static urls = {
     learning: (id) => this.baseUrl + `learnings/${id}`,
@@ -18,12 +18,15 @@ export default class Utilities {
   }
 
   static railsUrls = {
+    createUser: () => this.railsBaseUrl + 'users',
+    logout: () => this.railsBaseUrl + 'logout',
+    login: () => this.railsBaseUrl + 'login',
     getLearnings: () => this.railsBaseUrl + 'learnings',
     getLearning: (id) => this.railsBaseUrl + `learnings/${id}`,
-    getHeading: (id) => this.railsBaseUrl + `/headings/${id}`,
+    getHeading: (id) => this.railsBaseUrl + `headings/${id}`,
     createTag: () => this.railsUrls.getTags(),
     createLearning: () => this.railsUrls.getLearnings(),
-    createHeading: () => this.railsBaseUrl + '/headings',
+    createHeading: () => this.railsBaseUrl + 'headings',
     createNote: () => this.railsBaseUrl + `notes`,
     loggedIn: () => this.railsBaseUrl + 'logged_in',
     megaSummary: () => this.railsBaseUrl + 'mega_summary',
