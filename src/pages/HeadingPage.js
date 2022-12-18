@@ -1,9 +1,10 @@
-import { Box, Container, Link, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Link, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddNoteButton from "../components/learning/AddNoteButton";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default function HeadingPage() {
   const { id } = useParams()
@@ -35,11 +36,12 @@ export default function HeadingPage() {
     
       {pageData.notes.map((note) => (
         <Paper key={note.id} elevation={5} sx={{ p:3, my:2 }}>
-          <Link href={`${Utilities.urls.getNote(note.id)}`} sx={{ display: 'flex', justifyContent: 'space-between'}}>
-            <Typography variant="caption">Created: {Utilities.niceDateTime(note.created_at)}</Typography>
-            <Typography variant="caption">Updated: {Utilities.niceDateTime(note.updated_at)}</Typography>
-          </Link>
-          <Typography variant='body2'>{Utilities.limitString(note.content, 400)}</Typography>          
+          <Box key={note.id}>
+              <Typography variant='body1'>{Utilities.limitString(note.content, 400)}</Typography>
+              <Button color="primary" href={Utilities.urls.getNote(note.id)}>
+                <Typography variant="caption">Read note</Typography><OpenInNewIcon />
+              </Button>
+            </Box>          
         </Paper>
       ))}
     </React.Fragment>

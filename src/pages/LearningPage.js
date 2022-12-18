@@ -1,4 +1,4 @@
-import { Box, Button, Link, Paper, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Link, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -7,10 +7,16 @@ import NewHeading from "../components/learning/NewHeadingField";
 import LoadingWheel from "../components/LoadingWheel";
 import Utilities from "../Utilities";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ColoredChip from "../components/ColoredChip";
+import NewTagField from "../components/learning/NewTagField";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddTagField from "../components/learning/AddTagField";
 
 export default function LearningPage() {
   const { id } = useParams();
   const [pageData, setPageData] = useState()
+  const [success, setSuccess] = useState({message: ''})
+  const [error, setErrors] = useState('')
 
   useEffect(() => {
     fetch(Utilities.railsUrls.getLearning(id), {credentials: 'include'})
@@ -30,14 +36,72 @@ export default function LearningPage() {
   }, [])
 
   const setNewHeading = (heading) => {
-    setPageData({learning: pageData.learning, headings: [{ heading: heading, notes: [] }, ...pageData.headings]})
+    setPageData({
+      learning: pageData.learning, 
+      tags: pageData.tags, 
+      headings: [{ heading: heading, notes: [] }, ...pageData.headings]})
+  }
+
+  const setNewTags = (tags) => {
+    console.log(tags)
+    setPageData({
+      learning: pageData.learning,
+      tags: [...tags, ...pageData.tags],
+      headings: pageData.headings
+    })
+  }
+
+  const handleRemoveTag = (tagId) => {
+    console.log(tagId)
+    fetch(Utilities.railsUrls.removeTag(pageData.learning.id),{
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        tag_id: tagId,
+        learning_id: pageData.learning.id
+      })
+    }).then(res => res.json())
+    .then(body => {
+      if ('errors' in body) {
+        setErrors(body.errros)
+      } else {
+        setSuccess({message: `Successfully removed tag: ${body.tag.name}`})
+        setPageData({
+          learning: pageData.learning,
+          tags: pageData.tags.filter((tag) => tag.id != body.tag.id),
+          headings: pageData.headings
+        })
+      }
+    })
   }
   
   if (pageData === undefined) return (<LoadingWheel />)
-  console.log(pageData)
+  
   return (
     <React.Fragment>
-      <Typography variant="h4">{pageData.learning.name}</Typography>
+      <Typography variant="h4">
+        {pageData.learning.name}
+        {pageData.tags && pageData.tags.map((tag) => (
+          <React.Fragment key={tag.id}>
+            <ColoredChip sx={{ ml: 2 }} key={tag.id} label={tag.name} bgColor={tag.bg_color} color={tag.font_color} />
+            <IconButton onClick={() => {handleRemoveTag(tag.id)}}><DeleteForeverIcon /></IconButton>
+          </React.Fragment>
+        ))}
+      </Typography>
+      <AddTagField learningTags={pageData.tags} learningId={pageData.learning.id} setNewTags={setNewTags} />
+      {!!success.message && (
+        <Alert severity='success'>
+          <Typography variant='code'>{success.message}</Typography>
+        </Alert>
+      )}
+      {!!error && (
+        <Alert severity='error'>
+          <Typography variant='code'>{error}</Typography>
+        </Alert>
+      )}
       <NewHeading learningId={id} setNewHeading={setNewHeading} />
       {!pageData.headings && (
         <Container>

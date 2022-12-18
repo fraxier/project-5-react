@@ -28,12 +28,6 @@ export default function LearningsPage() {
       <Paper sx={{ p: 3}}>
         {pageData.map((row) => (
           <Box sx={{ my: 2 }} key={row.learning.id}>
-            <Link href={Utilities.urls.learning(row.learning.id)}>
-              <Typography variant="h5">{row.learning.name}</Typography>
-            </Link>
-            {row.tags && row.tags.map((tag) => (
-              <ColoredChip key={tag.id} label={tag.name} bgColor={tag.bg_color} color={tag.font_color} />
-            ))}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
               <Typography variant="caption">
                 Created: {Utilities.niceDateTime(row.learning.created_at)}
@@ -42,8 +36,14 @@ export default function LearningsPage() {
                 Last Opened: {Utilities.niceDateTime(row.learning.updated_at)}
               </Typography>
             </Box>
-            <Typography variant="body">{row.learning.motivation}</Typography>
+            <Link href={Utilities.urls.learning(row.learning.id)}>
+              <Typography variant="h5">{row.learning.name}</Typography>
+            </Link>
+            {row.tags && row.tags.map((tag) => (
+              <ColoredChip key={tag.id} label={tag.name} bgColor={tag.bg_color} color={tag.font_color} />
+            ))}
             <br/>
+            <Typography variant="body">{row.learning.motivation}</Typography>
           </Box>
         ))}
       </Paper>

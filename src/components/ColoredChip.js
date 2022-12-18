@@ -1,7 +1,7 @@
 import { Chip, styled, withStyles } from "@mui/material";
 import React from "react";
 
-export default function ColoredChip({ bgColor, color, label, size }) {
+export default function ColoredChip({ bgColor, color, label, size, sx }) {
 
   const StyleChip = styled(Chip)({
     color: color,
@@ -15,9 +15,9 @@ export default function ColoredChip({ bgColor, color, label, size }) {
   return (
     <React.Fragment>
       {(size === 'large') && (
-        <LargeChip className="tag" label={label} />
+        <LargeChip sx={sx} className="tag" label={label} />
       ) || (
-        <StyleChip className="tag" label={label} />
+        <StyleChip sx={sx} className="tag" label={label} />
       )}
     </React.Fragment>
   )

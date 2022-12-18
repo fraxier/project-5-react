@@ -25,7 +25,7 @@ const sampleColors = [
   '#BE0AFF'
 ]
 
-export default function NewTagField({ setNewTag, setSuccess, setErrors }) {
+export default function NewTagField({ setNewTag, setSuccess, setErrors, learning_id=-1 }) {
   const [submissionData, setsubmissionData] = useState({name: ''});
   const [formErrors, setFormErrors] = useState({message: ''});
   const [open, setOpen] = useState(false);
@@ -54,11 +54,12 @@ export default function NewTagField({ setNewTag, setSuccess, setErrors }) {
     const body = {
       name: submissionData.name,
       bg_color: chipBG,
-      font_color: chipColor
+      font_color: chipColor,
+      learning_id: learning_id
     }
     setFormErrors({message: ''})
-    setSuccess(null)
-    setErrors(null)
+    setSuccess('')
+    setErrors('')
 
     fetch(Utilities.railsUrls.createTag(), {
       method: 'POST',
